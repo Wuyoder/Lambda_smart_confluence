@@ -22,10 +22,10 @@ func (s *CompletionObj) GetOpenAIResp(ctx context.Context) ([]string, int32) {
 	var deployID string
 	if s.IsGPT4 {
 		// deployID = os.Getenv("MODEL4_DEPLOYMENT_ID")
-		deployID = ""
+		deployID = "gpt-4-8k"
 	} else {
 		// deployID = os.Getenv("MODEL3_DEPLOYMENT_ID")
-		deployID = ""
+		deployID = "gpt-35-turbo-default"
 	}
 
 	if s.IsChatMode {

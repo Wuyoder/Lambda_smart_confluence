@@ -12,7 +12,7 @@ import (
 
 func GetPageContentByID(pageID string) PageContent {
 	// confluenceEndpoint := os.Getenv("CONFLUENCE_ENDPOINT")
-	confluenceEndpoint := ""
+	confluenceEndpoint := "https://kkvideo.atlassian.net/"
 	url := confluenceEndpoint + fmt.Sprintf(constant.GetPageContenAPI, pageID) + "?body-format=view"
 
 	req := getClient(url, "GET", nil)
@@ -32,7 +32,7 @@ func GetPageContentByID(pageID string) PageContent {
 
 func UpdateTagsToPage(pageID string, tagsString string) *http.Response {
 	// confluenceEndpoint := os.Getenv("CONFLUENCE_ENDPOINT")
-	confluenceEndpoint := ""
+	confluenceEndpoint := "https://kkvideo.atlassian.net/"
 	url := confluenceEndpoint + fmt.Sprintf(constant.PostPageLabelAPI, pageID)
 
 	input := Label{
