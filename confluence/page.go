@@ -6,13 +6,13 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 	"smart_confluence_label/constant"
 	"smart_confluence_label/lib"
 )
 
 func GetPageContentByID(pageID string) PageContent {
-	// confluenceEndpoint := os.Getenv("CONFLUENCE_ENDPOINT")
-	confluenceEndpoint := "https://kkvideo.atlassian.net/"
+	confluenceEndpoint := os.Getenv("CONFLUENCE_ENDPOINT")
 	url := confluenceEndpoint + fmt.Sprintf(constant.GetPageContenAPI, pageID) + "?body-format=view"
 
 	req := getClient(url, "GET", nil)
@@ -31,8 +31,7 @@ func GetPageContentByID(pageID string) PageContent {
 }
 
 func UpdateTagsToPage(pageID string, tagsString string) *http.Response {
-	// confluenceEndpoint := os.Getenv("CONFLUENCE_ENDPOINT")
-	confluenceEndpoint := "https://kkvideo.atlassian.net/"
+	confluenceEndpoint := os.Getenv("CONFLUENCE_ENDPOINT")
 	url := confluenceEndpoint + fmt.Sprintf(constant.PostPageLabelAPI, pageID)
 
 	input := Label{
@@ -52,10 +51,8 @@ func UpdateTagsToPage(pageID string, tagsString string) *http.Response {
 }
 
 func getClient(url string, method string, body io.Reader) *http.Request {
-	// username := os.Getenv("CONFLUENCE_USERNAME")
-	// password := os.Getenv("CONFLUENCE_PASSWORD")
-	username := ""
-	password := ""
+	username := os.Getenv("CONFLUENCE_USERNAME")
+	password := os.Getenv("CONFLUENCE_PASSWORD")
 
 	req, _ := http.NewRequest(method, url, body)
 	req.Header.Set("Content-Type", "application/json")

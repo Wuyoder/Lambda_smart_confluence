@@ -3,6 +3,7 @@ package openai
 import (
 	"context"
 	"errors"
+	"os"
 	"smart_confluence_label/lib"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/ai/azopenai"
@@ -21,11 +22,9 @@ func (s *CompletionObj) GetOpenAIResp(ctx context.Context) ([]string, int32) {
 	var tokenUsage int32
 	var deployID string
 	if s.IsGPT4 {
-		// deployID = os.Getenv("MODEL4_DEPLOYMENT_ID")
-		deployID = "gpt-4-8k"
+		deployID = os.Getenv("MODEL4_DEPLOYMENT_ID")
 	} else {
-		// deployID = os.Getenv("MODEL3_DEPLOYMENT_ID")
-		deployID = "gpt-35-turbo-default"
+		deployID = os.Getenv("MODEL3_DEPLOYMENT_ID")
 	}
 
 	if s.IsChatMode {
@@ -84,10 +83,8 @@ func QueryWithPage(payload string, query string) string {
 }
 
 func getClient() *azopenai.Client {
-	// azureOpenAIKey := os.Getenv("AZURE_OPENAI_KEY")
-	// azureOpenAIEndpoint := os.Getenv("AZURE_OPENAI_ENDPOINT")
-	azureOpenAIKey := ""
-	azureOpenAIEndpoint := ""
+	azureOpenAIKey := os.Getenv("AZURE_OPENAI_KEY")
+	azureOpenAIEndpoint := os.Getenv("AZURE_OPENAI_ENDPOINT")
 
 	if azureOpenAIKey == "" || azureOpenAIEndpoint == "" {
 		lib.HandleErr(errors.New("environment variables missing"))
